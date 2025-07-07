@@ -5,6 +5,21 @@ description = "Python hooks for Claude Code"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = []
+authors = [
+    {name = "Vasily Kuznetsov", email = "kvas.it@gmail.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: MacOS",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
 [project.scripts]
 claude-logger = "claude_hooks.logger:main"
