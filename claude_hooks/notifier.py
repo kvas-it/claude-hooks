@@ -68,13 +68,9 @@ def show_notification(title, text):
 def main():
     """Main entry point for the notification hook."""
     parser = argparse.ArgumentParser(description="Show macOS notifications for Claude Code")
-    parser.add_argument("--title", help="Custom notification title")
-    parser.add_argument("--message", help="Custom notification message")
+    parser.add_argument("--title", help="Notification title")
+    parser.add_argument("--message", help="Default notification message")
     args = parser.parse_args()
-    
-    if args.title and args.message:
-        show_notification(args.title, args.message)
-        return
     
     try:
         input_data = sys.stdin.read().strip()
@@ -84,10 +80,13 @@ def main():
             tool = data.get("tool", "Unknown")
             command = data.get("command", "")
             status = data.get("status", "")
+            message = data.get("message", "")
             
             title = args.title or f"Claude Code: {tool}"
             
-            if args.message:
+            if message:
+                text = message
+            elif args.message:
                 text = args.message
             else:
                 text_parts = []

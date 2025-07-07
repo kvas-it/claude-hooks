@@ -36,6 +36,9 @@ claude-notify --title "Title" --message "Message"
 # Parse JSON from stdin
 echo '{"tool": "bash", "command": "ls"}' | claude-notify
 
+# Using message key from input
+echo '{"tool": "bash", "message": "Custom message from input"}' | claude-notify
+
 # Mixed mode (custom title + JSON data)
 echo '{"tool": "bash"}' | claude-notify --title "Custom Title"
 ```
@@ -46,6 +49,8 @@ echo '{"tool": "bash"}' | claude-notify --title "Custom Title"
 - Falls back to `osascript` for notifications
 - Plays notification sound
 - Clicking notification activates the correct terminal
+- Supports message key from JSON input for direct message display
+- Priority order: message key > --message flag > command/status info
 
 ### `claude-ruff`
 Lints and formats Python files using ruff.
