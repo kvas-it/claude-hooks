@@ -1,0 +1,11 @@
+[project]
+name = "claude-hooks"
+version = "0.1.0"
+description = "Python hooks for Claude Code"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+claude-logger = "claude_hooks.logger:main"
+claude-notify = "claude_hooks.notifier:main"
