@@ -7,5 +7,82 @@
       "Bash(git add:*)"
     ],
     "deny": []
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-logger .claude/log.pre-tool-use.jsonl"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-logger .claude/log.post-tool-use.jsonl"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-ruff --fix"
+          }
+        ]
+      }
+    ],
+    "PreMessage": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-logger .claude/log.pre-message.jsonl"
+          }
+        ]
+      }
+    ],
+    "PostMessage": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-logger .claude/log.post-message.jsonl"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-logger .claude/log.notification.jsonl"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-logger .claude/log.stop.jsonl"
+          }
+        ]
+      }
+    ]
   }
 }

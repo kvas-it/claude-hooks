@@ -6,11 +6,16 @@ Python hooks for [Claude Code](https://claude.ai/code) that provide logging and 
 
 - **claude-logger**: Logs Claude Code hook data to JSONL files with timestamps
 - **claude-notify**: Shows macOS notifications with smart terminal activation
+- **claude-ruff**: Lints and formats Python files using ruff
 
 ## Installation
 
 ```bash
+# Basic installation
 pip install -e .
+
+# With ruff support
+pip install -e .[ruff]
 ```
 
 ## Usage
@@ -31,6 +36,19 @@ claude-notify --title "Title" --message "Message"
 echo '{"tool": "bash", "command": "ls"}' | claude-notify
 ```
 
+### Ruff Hook
+
+```bash
+# Check for issues (default mode)
+echo '{"files": ["src/main.py", "tests/test_main.py"]}' | claude-ruff --check
+
+# Fix issues automatically
+echo '{"files": ["src/main.py"]}' | claude-ruff --fix
+
+# Single file
+echo '{"file": "script.py"}' | claude-ruff --check
+```
+
 ## Claude Code Integration
 
 Configure in `~/.claude/settings.json`:
@@ -48,6 +66,17 @@ Configure in `~/.claude/settings.json`:
           }
         ]
       }
+    ],
+    "ToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-ruff --fix"
+          }
+        ]
+      }
     ]
   }
 }
@@ -58,3 +87,4 @@ Configure in `~/.claude/settings.json`:
 - Python 3.10+
 - macOS (for notifications)
 - Optional: `terminal-notifier` for enhanced notifications
+- Optional: `ruff` for Python linting/formatting

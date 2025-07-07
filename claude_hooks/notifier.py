@@ -32,7 +32,7 @@ def get_terminal_app():
             for term_name, bundle_id in terminal_map.items():
                 if term_name in process_name.lower():
                     return bundle_id
-    except:
+    except Exception:
         pass
     
     return "org.alacritty"

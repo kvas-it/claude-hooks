@@ -21,6 +21,10 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
+[project.optional-dependencies]
+ruff = ["ruff"]
+
 [project.scripts]
 claude-logger = "claude_hooks.logger:main"
 claude-notify = "claude_hooks.notifier:main"
+claude-ruff = "claude_hooks.ruff:main"

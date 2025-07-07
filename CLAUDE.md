@@ -47,6 +47,33 @@ echo '{"tool": "bash"}' | claude-notify --title "Custom Title"
 - Plays notification sound
 - Clicking notification activates the correct terminal
 
+### `claude-ruff`
+Lints and formats Python files using ruff.
+
+**Installation:**
+```bash
+pip install -e .[ruff]
+```
+
+**Usage:**
+```bash
+# Check for issues (default mode)
+echo '{"files": ["src/main.py", "tests/test_main.py"]}' | claude-ruff --check
+
+# Fix issues automatically
+echo '{"files": ["src/main.py"]}' | claude-ruff --fix
+
+# Single file
+echo '{"file": "script.py"}' | claude-ruff --check
+```
+
+**Features:**
+- Automatically filters for Python files (.py extension)
+- Supports both linting (--check) and fixing (--fix) modes
+- Respects existing ruff configuration in projects
+- Handles multiple JSON input formats (files array, single file, file_path)
+- Graceful error handling when ruff is not installed
+
 ## Global Hook Configuration
 
 The hooks are configured in `~/.claude/settings.json` for global Claude Code integration:
@@ -75,6 +102,17 @@ The hooks are configured in `~/.claude/settings.json` for global Claude Code int
           }
         ]
       }
+    ],
+    "ToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-ruff --fix"
+          }
+        ]
+      }
     ]
   }
 }
@@ -90,7 +128,8 @@ claude-hooks/
 ├── claude_hooks/
 │   ├── __init__.py        # Package initialization
 │   ├── logger.py          # JSONL logging hook
-│   └── notifier.py        # macOS notification hook
+│   ├── notifier.py        # macOS notification hook
+│   └── ruff.py            # Python linting/formatting hook
 ```
 
 ## Development
