@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Claude Code logging hook that writes events to a JSONL file."""
 
 import argparse

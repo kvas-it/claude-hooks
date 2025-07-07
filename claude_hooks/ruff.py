@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Claude Code ruff hook for linting and formatting Python files."""
 
 import argparse
@@ -104,6 +104,15 @@ def main():
             # Handle {"file_path": "single_file.py"} (common in hooks)
             elif "file_path" in data:
                 files = [data["file_path"]]
+            # Handle Claude Code hook format
+            elif "tool_input" in data and isinstance(data["tool_input"], dict):
+                tool_input = data["tool_input"]
+                if "file_path" in tool_input:
+                    files = [tool_input["file_path"]]
+            elif "tool_response" in data and isinstance(data["tool_response"], dict):
+                tool_response = data["tool_response"]
+                if "filePath" in tool_response:
+                    files = [tool_response["filePath"]]
         elif isinstance(data, list):
             # Handle direct list of files
             files = data
